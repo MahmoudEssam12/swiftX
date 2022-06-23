@@ -1,0 +1,323 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+    z-index: 6;
+
+    // padding: 0 6rem;
+    &__links {
+        list-style: none;
+
+        li {
+            display: inline-block;
+            text-transform: uppercase;
+
+            a {
+                padding: 1.5rem 1rem;
+                text-decoration: none;
+                display: block;
+                color: var(--primary-color);
+                transition: all .3s ease;
+            }
+
+
+        }
+
+        &__active {
+            position: relative;
+
+            &::after {
+                content: "";
+                width: 100%;
+                height: 2px;
+                background-color: var(--secondary-color);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+
+    .currencies {
+        display: inline-block;
+        position: relative;
+        margin-right: 20px;
+
+        &__head {
+            cursor: pointer;
+            min-width: 40px;
+        }
+
+        span {
+            font-size: 18px;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        img {
+            transition: transform .3s ease;
+            transform: rotate(180deg);
+        }
+
+        .img__rotation {
+            transform: rotate(0);
+        }
+
+        ul {
+            list-style: none;
+            position: absolute;
+            min-width: 115px;
+            box-shadow: 0 0 11px 1px #f2f2f2;
+            top: 30px;
+            right: -50px;
+            transition: all .3s ease;
+            transform: translateY(10px);
+            visibility: hidden;
+            opacity: 0;
+            background-color: #fff;
+
+            li {
+                padding: 10px 20px;
+                font-weight: 500;
+                font-size: 18px;
+                transition: all .3s ease;
+
+                &:nth-child(1) {
+                    padding-top: 15px;
+                }
+
+                &:last-child {
+                    padding-bottom: 15px;
+                }
+
+                &:hover {
+                    background-color: var(--secondary-color);
+                    color: #fff;
+                }
+            }
+
+            &.currencies__active~img {
+                transform: rotate(180deg);
+            }
+
+        }
+
+        .currencies__active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    &__cart_wrapper {
+        display: inline-block;
+        position: relative;
+
+        img {
+            cursor: pointer;
+
+        }
+
+    }
+
+    &__cart {
+        position: absolute;
+        top: 40px;
+        right: 0px;
+        min-width: 300px;
+        padding: 10px;
+        transition: all .3s ease;
+        transform: translateY(10px);
+        visibility: hidden;
+        opacity: 0;
+        background-color: #fff;
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        &_active {
+            transform: translateY(0);
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &__cart_product {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 20px;
+
+        h4 {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 16px;
+        }
+    }
+
+    &__product_details {
+        width: 130px;
+    }
+
+    &__product_details,
+    &__product_quantity {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__product_quantity {
+        align-items: center
+    }
+
+    .navbar__links__active {
+        color: var(--secondary-color) !important;
+    }
+
+}
+
+.cart_button {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 2px 6px;
+    background: rgba(166, 166, 166, 0.2);
+    border: 1px solid var(--gray-color);
+    color: var(--gray-color);
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &_active,
+    &:hover {
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        background-color: #fff;
+    }
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.cart_buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        font-size: 15px;
+        font-weight: 500;
+        background-color: #fff;
+        padding: 12px 28px;
+        transition: all .3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: 1px solid var(--secondary-color);
+        }
+
+        &:nth-child(2) {
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: 1px solid var(--secondary-color);
+
+            &:hover {
+                border-color: var(--primary-color);
+                color: var(--primary-color);
+                background-color: #fff;
+
+
+            }
+        }
+    }
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--primary-color);
+    opacity: 0.5;
+    z-index: 5;
+    transition: opacity .3s ease;
+}
+
+.hidden {
+    opacity: 0;
+    z-index: -1;
+}
+
+.warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 500;
+}
+
+.warn {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    visibility: visible;
+    opacity: 1;
+
+}
+
+.warning_body {
+    position: relative;
+    z-index: 600;
+    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 10px;
+
+    h2 {
+        color: orange;
+    }
+
+    p {
+        margin-top: 1rem;
+    }
+
+    button {
+        display: block;
+        padding: 0.5rem 2rem;
+        color: #fff;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        background-color: rgb(207, 0, 0);
+        margin: 2rem 0 1rem;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all .3s ease;
+
+        &:hover {
+            background-color: rgb(193, 0, 0);
+        }
+    }
+}

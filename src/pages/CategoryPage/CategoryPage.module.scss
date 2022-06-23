@@ -1,0 +1,20 @@
+.category_name {
+    margin: 3rem 0 5rem;
+    font-weight: 400;
+}
+
+.products_wrapper {
+    margin-bottom: 2rem;
+    display: grid;
+    justify-items: center;
+    gap: 3rem 1rem;
+
+    @media(min-width:550px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media(min-width:868px) {
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+}
