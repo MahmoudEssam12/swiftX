@@ -63,6 +63,13 @@ function deleteProduct(products, id) {
     return products
 }
 
+function updateCartProduct(arr, newObj) {
+    console.log(newObj)
+    let targetProduct = arr.findIndex(product => product.id === newObj.id);
+    arr.splice(targetProduct, 1, newObj)
+    return arr
+}
+
 export function cartReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case "ADD_TO_CART":
@@ -71,6 +78,11 @@ export function cartReducer(state = INITIAL_STATE, action) {
                 products: quantityCheck([...state.products, action.payload]),
                 total: calculateTotal([...state.products, action.payload])
             };
+        case "UPDATE_CART_PRODUCT":
+            return {
+                products: updateCartProduct(state.products, action.payload),
+                total: state.total
+            }
         case "SET_CART_EMPTY":
             return {
                 products: action.payload,

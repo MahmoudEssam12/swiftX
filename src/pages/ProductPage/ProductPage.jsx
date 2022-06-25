@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./ProductPage.module.scss";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCart } from "./../../store/actions/cart";
+import { setCart, updateCartProduct } from "./../../store/actions/cart";
 import numberWithCommas from "../../hooks/numberWithCommas";
 
 export function SizeButton({
@@ -24,6 +24,7 @@ export function SizeButton({
     </div>
   );
 }
+
 function ProductPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
@@ -33,15 +34,30 @@ function ProductPage() {
     amount: "",
   });
   const storeCurrency = useSelector((state) => state.currency);
-  const [mainImgSrc, setMainImgSrc] = useState("");
+  const cartState = useSelector((state) => state.cart);
+
+  const [mainImgSrc, setMainImgSrc] = useState(""); //
   let selectedAttributesInit = [
     { name: "Color", item: { displayValue: "Black", value: "#000" } },
     { name: "Capacity", item: { displayValue: "512G", value: "512G" } },
   ];
+
   const [selectedAttributes, setSelectedAttributes] = useState(
     selectedAttributesInit
   );
-
+  const attributesList = (arr) => {
+    let attributes = arr.attributes.map((attribute) => {
+      let attr = {
+        name: attribute.name,
+        item: {
+          displayValue: attribute.items[0].displayValue,
+          value: attribute.items[0].value,
+        },
+      };
+      return attr;
+    });
+    return attributes;
+  };
   const disptach = useDispatch();
 
   const addToCart = () => {
@@ -55,11 +71,14 @@ function ProductPage() {
       basePrice: currentCurrency.amount,
       attributes: selectedAttributes,
     };
-    disptach(setCart(item));
-    console.log(item);
+    if (cartState.products.find((item) => item.id === product.id)) {
+      disptach(updateCartProduct(item));
+    } else {
+      disptach(setCart(item));
+    }
   };
-  const matchSelectedAttribute = (attr, displayValue) => {
-    return attr.item.displayValue === displayValue;
+  const matchSelectedAttribute = (attr, displayValue, name) => {
+    return attr.item.displayValue === displayValue && attr.name === name;
   };
   const selectAttribute = (attr) => {
     let attribute = {
@@ -102,7 +121,7 @@ function ProductPage() {
         setProduct(data.data.product);
         setLoading(false);
         setMainImgSrc(data.data.product.gallery[0]);
-        console.log(data.data.product);
+        setSelectedAttributes(attributesList(data.data.product));
       })
       .catch((err) => console.log(err));
 
@@ -164,7 +183,11 @@ function ProductPage() {
                       bgColor={item.value}
                       active={
                         selectedAttributes.find((attr) =>
-                          matchSelectedAttribute(attr, item.displayValue)
+                          matchSelectedAttribute(
+                            attr,
+                            item.displayValue,
+                            attribute.name
+                          )
                         ) !== undefined
                           ? classes.sizeButton_active
                           : " "
@@ -180,12 +203,6 @@ function ProductPage() {
                       {item.displayValue}
                     </SizeButton>
                   ))}
-                  {/* <SizeButton disabled={classes.sizeButton_disabled}>
-                xs
-              </SizeButton>
-              <SizeButton active={classes.sizeButton_active}>s</SizeButton>
-              <SizeButton>m</SizeButton>
-              <SizeButton>l</SizeButton> */}
                 </div>
               </div>
             ))}
@@ -196,17 +213,17 @@ function ProductPage() {
                 numberWithCommas(currentCurrency.amount)}
             </p>
             {!product.inStock ? (
-              <button className={classes.add__button} onClick={addToCart}>
+              <button
+                className={classes.add__button}
+                onClick={addToCart}
+                style={{ margin: "1rem 0" }}
+              >
                 Add to cart
               </button>
             ) : (
               ""
             )}
             <div dangerouslySetInnerHTML={{ __html: product.description }} />
-            {/* Find stunning women's cocktail dresses and party dresses. Stand
-              out in lace and metallic cocktail dresses and party dresses from
-              all your favorite brands. */}
-            {/* {product.description} */}
           </div>
         </>
       ) : (

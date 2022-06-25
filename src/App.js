@@ -17,7 +17,6 @@ function App() {
       name
     }
   }`
-
   const fetchCategories = useFetchCateogries(process.env.REACT_APP_API_URL, categoriesListQuery)
   return (
     <div className="App">

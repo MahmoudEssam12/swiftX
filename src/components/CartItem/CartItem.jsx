@@ -9,6 +9,7 @@ import {
   deleteCartItem,
 } from "./../../store/actions/cart";
 import "./CartItem.scss";
+import { Link } from "react-router-dom";
 function CartButton({ children, styling, cname, clickEvent }) {
   return (
     <div
@@ -84,7 +85,9 @@ function CartItem({ name, brand, price, gallery, id, quantity, attributes }) {
             <i className="fa-solid fa-minus"></i>
           </CartButton>
         </div>
-        <img src={gallery[0]} alt="product" />
+        <Link to={`/products/${id}`}>
+          <img src={gallery[0]} alt="product" />
+        </Link>
       </div>
     </div>
   );

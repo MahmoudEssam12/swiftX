@@ -5,6 +5,13 @@ export const setCart = (payload) => {
     }
 }
 
+export const updateCartProduct = (payload) => {
+    return {
+        type: "UPDATE_CART_PRODUCT",
+        payload
+    }
+}
+
 export const setCartEmpty = (payload) => {
     return {
         type: "SET_CART_EMPTY",

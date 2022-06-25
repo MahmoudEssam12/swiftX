@@ -7,6 +7,7 @@ import {
   decreaseQuantityItem,
   deleteCartItem,
 } from "./../../store/actions/cart";
+import { Link } from "react-router-dom";
 
 function CartButton({ children, styling, cname, clickEvent }) {
   return (
@@ -46,7 +47,7 @@ function CartProduct({ name, price, images, quantity, id, attributes }) {
           {price}
         </p>
         <div>
-          {attributes.map((attribute) => (
+          {attributes.map((attribute, index) => (
             <CartButton
               styling={{
                 width: "35px",
@@ -55,18 +56,12 @@ function CartProduct({ name, price, images, quantity, id, attributes }) {
                 marginRight: "5px",
               }}
               cname={classes.cart_button_active}
-              key={attribute.name}
+              key={index}
             >
               {" "}
               {attribute.item.displayValue}
             </CartButton>
           ))}
-          {/* <CartButton
-            styling={{ marginRight: "5px" }}
-            cname={classes.cart_button_active}
-          >
-            S
-          </CartButton> */}
         </div>
       </div>
       <div className={classes.navbar__product_quantity}>
@@ -91,11 +86,13 @@ function CartProduct({ name, price, images, quantity, id, attributes }) {
         </CartButton>
       </div>
       <div className="product-image">
-        <img
-          src={images[0]}
-          alt="product img"
-          style={{ width: "130px", height: "100px", objectFit: "contain" }}
-        />
+        <Link to={`/products/${id}`}>
+          <img
+            src={images[0]}
+            alt="product img"
+            style={{ width: "130px", height: "100px", objectFit: "contain" }}
+          />
+        </Link>
       </div>
     </div>
   );

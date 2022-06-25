@@ -18,10 +18,18 @@ function Card({
 }) {
   const disptach = useDispatch();
   const cartState = useSelector((state) => state.cart);
-
+  const attrList = attributes.map((attribute) => {
+    let attr = {
+      name: attribute.name,
+      item: {
+        displayValue: attribute.items[0].displayValue,
+        value: attribute.items[0].value,
+      },
+    };
+    return attr;
+  });
+  // console.log("attributes", attributes);
   const addToCart = () => {
-    console.log(attributes);
-
     let item = {
       name,
       inStock,
@@ -30,15 +38,7 @@ function Card({
       id,
       quantity: 1,
       basePrice: price.amount,
-      attributes: [
-        {
-          name: attributes[0].name,
-          item: {
-            displayValue: attributes[0].items[0].displayValue,
-            value: attributes[0].items[0].value,
-          },
-        },
-      ],
+      attributes: attrList,
     };
     let quantityCheck = cartState.products.find(
       (product) => product.id === item.id
@@ -57,9 +57,11 @@ function Card({
           {inStock && <p>Out of stock</p>}
         </Link>
       </div>
-      <div className={classes.card_wrapper__cart_icon} onClick={addToCart}>
-        <img src={cart} alt="cart" />
-      </div>
+      {!inStock && (
+        <div className={classes.card_wrapper__cart_icon} onClick={addToCart}>
+          <img src={cart} alt="cart" />
+        </div>
+      )}
 
       <h3>
         <Link to="/">{name}</Link>

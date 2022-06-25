@@ -37,7 +37,7 @@
     }
 
     &__main_image {
-        min-width: 500px;
+        max-width: 500px;
         height: 500px;
         object-fit: contain;
     }
