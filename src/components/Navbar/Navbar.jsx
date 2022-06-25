@@ -97,6 +97,7 @@ function Navbar({ categories }) {
                 className={(navData) =>
                   navData.isActive ? classes.navbar__links__active : ""
                 }
+                state={{ start: 0, max: 4 }}
               >
                 {category.name}
               </NavLink>

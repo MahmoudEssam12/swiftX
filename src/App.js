@@ -23,8 +23,8 @@ function App() {
       <Router>
         <Navbar categories={fetchCategories} />
         <Routes>
-          <Route path="/" element={<Navigate to="/categories/all" replace />} />
-          <Route path="/categories/:categoryName" element={<CategoryPage />} />
+          <Route path="/" element={<Navigate to="/categories/all" state={{ start: 0, max: 4 }} replace />} />
+          <Route path="/categories/:categoryName" exact element={<CategoryPage />} />
           <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
