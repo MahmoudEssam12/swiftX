@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Validations
+- you can't change currency if the cart has products you have to clear your cart before changing currency.
+- you can't add an out of stock product to the cart
+
 ## Available Scripts
 
 In the project directory, you can run:
